@@ -25,3 +25,26 @@ def grafica_precios():
     imagen.seek(0)
 
     return StreamingResponse(imagen, media_type="image/png")
+
+
+@app.get("/graficas/histograma/{columna}")
+def grafica_columna(columna,num_bins=15):
+    if columna not in columnas_cuantitativas:
+        raise HTTPException(404, detail="Esa columna no es cuantitativa")
+
+    else:    
+        fig, ax = plt.subplots()
+        ax.hist(df[columna].dropna(), bins=int(num_bins))
+        ax.set_title(f"Distribución de {columna}")
+        ax.set_xlabel(f"{columna}")
+        ax.set_ylabel("Frecuencia")
+
+        imagen = BytesIO()
+        fig.savefig(imagen, format="png", bbox_inches="tight")
+        plt.close(fig)
+        imagen.seek(0)
+
+        return StreamingResponse(imagen, media_type="image/png")
+
+
+
