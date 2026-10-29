@@ -6,6 +6,7 @@ import pandas as pd
 from pathlib import Path
 
 app = FastAPI()
+columnas_cuantitativas=["precio_unitario","cantidad","descuento","total"]
 
 RUTA_CSV = Path(__file__).parent / "ventas_sinteticas.csv"
 df = pd.read_csv(RUTA_CSV)
