@@ -30,7 +30,6 @@ def grafica_precios():
 
 
 
-        return StreamingResponse(imagen, media_type="image/png")
 
 
 
